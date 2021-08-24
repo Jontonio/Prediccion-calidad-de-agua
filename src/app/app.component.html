@@ -1,128 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <title>WATER QUALITY</title>
-</head>
-<body>
-
-    <div class="container">
+<div class="container animate__animated animate__fadeIn">
+  <div class="card mt-4">
+    <div class="card-body">
+      <div class="container">
         <h2 class="text-center m-5">Predicción de la calidad de agua</h2>
-    </div>
-    <div class="container mt-4">
-        <form [formGroup]="formData">
-            <div class="row">
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Dureza</label>
-                      </div>
+      </div>
+      <div class="container">
+          <form [formGroup]="formData">
+              <div class="row">
+                  <div class="col">
                       <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Dureza">
-                      </div>
-                </div>
-                <div class="col">
-                    <div class="col-auto">
-                        <label for="inputtext6" class="col-form-label">Sólidos Totales Disueltos (TDS)</label>
-                      </div>
+                          <label class="col-form-label">Dureza</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Dureza"
+                                  [ngClass]="{'is-invalid': dureza }">
+                        </div>
+                  </div>
+                  <div class="col">
                       <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Solidos_TDS">
-                      </div>
-                </div>
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Monocloramina</label>
-                      </div>
+                          <label for="inputtext6" class="col-form-label">Sólidos Totales Disueltos (TDS)</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Solidos_TDS"
+                                  [ngClass]="{'is-invalid': solidos_TDS }">
+                        </div>
+                  </div>
+                  <div class="col">
                       <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Monocloramina">
-                      </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Conductividad</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Conductividad">
-                      </div>
-                </div>
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Carbon Orgánico</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Carbon_Organico">
-                      </div>
-                </div>
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Turbiedad</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Turbiedad">
-                      </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Ph</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Ph">
-                      </div>
-                </div>
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Sulfato</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Sulfato">
-                      </div>
-                </div>
-                <div class="col">
-                    <div class="col-auto">
-                        <label class="col-form-label">Trihalometanos</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="text" class="form-control" formControlName="Trihalometanos">
-                      </div>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col mt-2">
-                <div class="col-auto">
-                  <label class="col-form-label">Algoritmos</label>
-                </div>
-                <select class="form-select" formControlName="tipo_algoritmo">
-                  <option value="tipo">Tipo de algoritmo</option>
-                  <option value="RL">Regresión Logística</option>
-                  <option value="KNN">K-vecinos mas cercanos</option>
-                  <option value="RM">Bosques aleatorios</option>
-                </select>
+                          <label class="col-form-label">Monocloramina</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Monocloramina"
+                                  [ngClass]="{'is-invalid': monocloramina }">
+                        </div>
+                  </div>
               </div>
+              <div class="row">
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Conductividad</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Conductividad"
+                                  [ngClass]="{'is-invalid': conductividad }">
+                        </div>
+                  </div>
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Carbon Orgánico</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Carbon_Organico"
+                                  [ngClass]="{'is-invalid': carbon_Organico }">
+                        </div>
+                  </div>
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Turbiedad</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Turbiedad"
+                                  [ngClass]="{'is-invalid': turbiedad }">
+                        </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Ph</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Ph"
+                                  [ngClass]="{'is-invalid': ph }">
+                        </div>
+                  </div>
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Sulfato</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Sulfato"
+                                  [ngClass]="{'is-invalid': sulfato }">
+                        </div>
+                  </div>
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Trihalometanos</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Trihalometanos"
+                                  [ngClass]="{'is-invalid': trihalometanos }">
+                        </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col mt-2">
+                  <div class="col-auto">
+                    <label class="col-form-label">Algoritmos</label>
+                  </div>
+                  <select class="form-select" 
+                          formControlName="tipo_algoritmo"
+                          [ngClass]="{'is-invalid': tipo }">
+                    <option value="tipo">Tipo de algoritmo</option>
+                    <option value="RL">Regresión Logística</option>
+                    <option value="KNN">K-vecinos mas cercanos</option>
+                    <option value="RM">Bosques aleatorios</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary btn-lg btn-sm" 
+                        (click)="sendPredict()"
+                        [disabled]="_api.load">
+                  <span *ngIf="_api.load" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Resultado
+                </button>
+                <button class="btn btn-danger btn-lg btn-sm m-1" (click)="clear()">Limpiar campos</button>
+              </div>
+          </form>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col mt-2">
+            <div *ngIf="_api.resultado==1" class="alert alert-info animate__animated animate__fadeIn" role="alert">
+              El agua ha sido clasificado como <b>potable</b> 😊
             </div>
-            <div class="mt-3">
-              <button class="btn btn-primary btn-lg btn-sm" (click)="sendPredict()">Resultado</button>
-              <button class="btn btn-danger btn-lg btn-sm m-1" (click)="clear()">Limpiar campos</button>
+            <div *ngIf="_api.resultado==0" class="alert alert-danger animate__animated animate__fadeIn" role="alert">
+              El agua ha sido clasificado como <b>no potable</b>  🥺
             </div>
-        </form>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col mt-2">
-          <div *ngIf="_api.resultado==1" class="alert alert-info" role="alert">
-            El agua ha sido clasificado como potable 😊
-          </div>
-          <div *ngIf="_api.resultado==0" class="alert alert-danger" role="alert">
-            El agua no ha sido clasificado como potable  🥺
           </div>
         </div>
       </div>
     </div>
-</body>
-</html>
+  </div>
+</div>

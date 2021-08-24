@@ -10,16 +10,21 @@ export class ApiService {
 
   constructor(private http:HttpClient) { }
   resultado:number = -1;
+  load:boolean = false;
 
   sendData(data:Water){
+    this.load = true;
     this.http.post(this.url, data).subscribe( res => {
-      console.log(res)
-      if(res==1){
-        this.resultado = res as number;
-      }else {
-        this.resultado = res as number;
-      }
+      setTimeout(() => {
+        this.load= false;
+        if(res==1){
+          this.resultado = res as number;
+        }else {
+          this.resultado = res as number;
+        }
+      }, 1000);
     }, err =>{
+      this.load = false;
       console.log(err)
     })
   }
