@@ -2,11 +2,24 @@
   <div class="card mt-4">
     <div class="card-body">
       <div class="container">
-        <h2 class="text-center m-5">Predicción de la calidad de agua</h2>
+        <h2 class="text-center m-5">Predicción de la calidad de agua para el consumo humano</h2>
       </div>
       <div class="container">
           <form [formGroup]="formData">
               <div class="row">
+                  <!-- ph -->
+                  <div class="col">
+                  <div class="col-auto">
+                      <label class="col-form-label">Ph</label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" 
+                              class="form-control" 
+                              formControlName="Ph"
+                              [ngClass]="{'is-invalid': ph }">
+                    </div>
+                  </div>
+                  <!-- dureza -->
                   <div class="col">
                       <div class="col-auto">
                           <label class="col-form-label">Dureza</label>
@@ -18,6 +31,7 @@
                                   [ngClass]="{'is-invalid': dureza }">
                         </div>
                   </div>
+                  <!-- STD  -->
                   <div class="col">
                       <div class="col-auto">
                           <label for="inputtext6" class="col-form-label">Sólidos Totales Disueltos (TDS)</label>
@@ -29,6 +43,9 @@
                                   [ngClass]="{'is-invalid': solidos_TDS }">
                         </div>
                   </div>
+              </div>
+              <div class="row">
+                  <!-- Monocloramina -->
                   <div class="col">
                       <div class="col-auto">
                           <label class="col-form-label">Monocloramina</label>
@@ -40,8 +57,19 @@
                                   [ngClass]="{'is-invalid': monocloramina }">
                         </div>
                   </div>
-              </div>
-              <div class="row">
+                  <!-- sulfato -->
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Sulfato</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Sulfato"
+                                  [ngClass]="{'is-invalid': sulfato }">
+                        </div>
+                  </div>
+                  <!-- conductividad -->
                   <div class="col">
                       <div class="col-auto">
                           <label class="col-form-label">Conductividad</label>
@@ -53,6 +81,9 @@
                                   [ngClass]="{'is-invalid': conductividad }">
                         </div>
                   </div>
+              </div>
+              <div class="row">
+                  <!-- carbon_Organico -->
                   <div class="col">
                       <div class="col-auto">
                           <label class="col-form-label">Carbon Orgánico</label>
@@ -64,6 +95,19 @@
                                   [ngClass]="{'is-invalid': carbon_Organico }">
                         </div>
                   </div>
+                  <!-- trihalometanos -->
+                  <div class="col">
+                      <div class="col-auto">
+                          <label class="col-form-label">Trihalometanos</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" 
+                                  class="form-control" 
+                                  formControlName="Trihalometanos"
+                                  [ngClass]="{'is-invalid': trihalometanos }">
+                        </div>
+                  </div>
+                  <!-- turbiedad -->
                   <div class="col">
                       <div class="col-auto">
                           <label class="col-form-label">Turbiedad</label>
@@ -77,52 +121,18 @@
                   </div>
               </div>
               <div class="row">
-                  <div class="col">
-                      <div class="col-auto">
-                          <label class="col-form-label">Ph</label>
-                        </div>
-                        <div class="col-auto">
-                          <input type="text" 
-                                  class="form-control" 
-                                  formControlName="Ph"
-                                  [ngClass]="{'is-invalid': ph }">
-                        </div>
-                  </div>
-                  <div class="col">
-                      <div class="col-auto">
-                          <label class="col-form-label">Sulfato</label>
-                        </div>
-                        <div class="col-auto">
-                          <input type="text" 
-                                  class="form-control" 
-                                  formControlName="Sulfato"
-                                  [ngClass]="{'is-invalid': sulfato }">
-                        </div>
-                  </div>
-                  <div class="col">
-                      <div class="col-auto">
-                          <label class="col-form-label">Trihalometanos</label>
-                        </div>
-                        <div class="col-auto">
-                          <input type="text" 
-                                  class="form-control" 
-                                  formControlName="Trihalometanos"
-                                  [ngClass]="{'is-invalid': trihalometanos }">
-                        </div>
-                  </div>
-              </div>
-              <div class="row">
                 <div class="col mt-2">
                   <div class="col-auto">
                     <label class="col-form-label">Algoritmos</label>
                   </div>
                   <select class="form-select" 
                           formControlName="tipo_algoritmo"
+                          (ngModelChange)="hiddenResult($event)"
                           [ngClass]="{'is-invalid': tipo }">
-                    <option value="tipo">Tipo de algoritmo</option>
                     <option value="RL">Regresión Logística</option>
                     <option value="KNN">K-vecinos mas cercanos</option>
                     <option value="RM">Bosques aleatorios</option>
+                    <option value="AB">Ada Boost</option>
                   </select>
                 </div>
               </div>
@@ -139,12 +149,12 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col mt-3">
+          <div class="col mt-3" *ngIf="this._api.change">
             <div *ngIf="_api.resultado==1" class="alert alert-info animate__animated animate__fadeIn" role="alert">
-              El agua ha sido clasificado como <b>potable</b> 😊
+              El algoritmo <b>{{algoritmo(formData.value.tipo_algoritmo)}}</b> clasificó como agua <b>potable</b> 😊
             </div>
             <div *ngIf="_api.resultado==0" class="alert alert-danger animate__animated animate__fadeIn" role="alert">
-              El agua ha sido clasificado como <b>no potable</b>  🥺
+              El algoritmo <b>{{algoritmo(formData.value.tipo_algoritmo)}}</b> clasificó como agua <b>No potable</b>  🥺
             </div>
           </div>
         </div>

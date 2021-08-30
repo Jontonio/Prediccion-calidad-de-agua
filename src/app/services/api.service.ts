@@ -11,12 +11,14 @@ export class ApiService {
   constructor(private http:HttpClient) { }
   resultado:number = -1;
   load:boolean = false;
+  change: boolean = true;
 
   sendData(data:Water){
     this.load = true;
     this.http.post(this.url, data).subscribe( res => {
       setTimeout(() => {
-        this.load= false;
+        this.load = false;
+        this.change = true;
         if(res==1){
           this.resultado = res as number;
         }else {

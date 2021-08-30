@@ -18,16 +18,16 @@ export class AppComponent {
 
   form(){
     this.formData = this.fb.group({
-      tipo_algoritmo:['tipo', Validators.required],
+      tipo_algoritmo:['RL', Validators.required],
+      Ph:[, Validators.required],
       Dureza:[, Validators.required],
       Solidos_TDS:[, Validators.required],
       Monocloramina:[, Validators.required],
+      Sulfato:[, Validators.required],
       Conductividad:[, Validators.required],
       Carbon_Organico:[, Validators.required],
-      Turbiedad:[, Validators.required],
-      Ph:[, Validators.required],
-      Sulfato:[, Validators.required],
-      Trihalometanos:[, Validators.required]
+      Trihalometanos:[, Validators.required],
+      Turbiedad:[, Validators.required]
     })
   }
 
@@ -38,15 +38,14 @@ export class AppComponent {
           this.formData.controls[input].markAllAsTouched()
         })
         return;
-      }else if(this.formData.value.tipo_algoritmo!='tipo'){
-        this._api.sendData(this.formData.value);
       }
+      this._api.sendData(this.formData.value);
   }
 
   // function clear 
   clear(){
     this.formData.reset();
-    this.formData.controls['tipo_algoritmo'].setValue('tipo')
+    this.formData.controls['tipo_algoritmo'].setValue('RL');
     this._api.resultado = -1;
   }
 
@@ -80,6 +79,28 @@ export class AppComponent {
   }
   get tipo(){
     return (this.formData.value.tipo_algoritmo=='tipo') && this.formData.controls['tipo_algoritmo'].touched;
+  }
+
+  // type
+  algoritmo(nombre:string):string{
+    let name = '';
+    if(nombre=='RL'){
+      name = 'Regresión logística';
+    }
+    if(nombre=='KNN'){
+      name = 'K-vecinos mas cercanos';
+    }
+    if(nombre=='RM'){
+      name = 'Bosques aleatorios';
+    }
+    if(nombre=='AB'){
+      name = 'Ada boost';
+    }
+    return name;
+  }
+
+  hiddenResult(event:Event){
+    this._api.change = false;
   }
 
 
