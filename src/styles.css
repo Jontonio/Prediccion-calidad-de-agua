@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background-image: url(https://pixabay.com/get/g532d48c9c5b8b3fd98305ac09ba814ef9cfe58092049412b5ac4b7c0839eaae0c43a73b6debc1130d72a0ae91542bc8b_1920.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.container-main{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    
+    height: auto;
+}
+.btn-custom{
+    color: #FFF;
+    border: none;
+    background: none;
+    background: #19447D;
+    font-size: 16px;
+}

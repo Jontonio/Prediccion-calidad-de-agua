@@ -1,8 +1,8 @@
-<div class="container animate__animated animate__fadeIn">
-  <div class="card mt-4">
+<div class="container animate__animated animate__fadeIn container-main">
+  <div class="card">
     <div class="card-body">
       <div class="container">
-        <h2 class="text-center m-5">Predicción de la calidad de agua para el consumo humano</h2>
+        <h2 class="text-center m-4">Predicción de la calidad de agua para el consumo humano</h2>
       </div>
       <div class="container">
           <form [formGroup]="formData">
@@ -16,6 +16,7 @@
                       <input type="text" 
                               class="form-control" 
                               formControlName="Ph"
+                              placeholder="Grado de acidez"
                               [ngClass]="{'is-invalid': ph }">
                     </div>
                   </div>
@@ -28,18 +29,20 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Dureza"
+                                  placeholder="mg/l"
                                   [ngClass]="{'is-invalid': dureza }">
                         </div>
                   </div>
                   <!-- STD  -->
                   <div class="col">
                       <div class="col-auto">
-                          <label for="inputtext6" class="col-form-label">Sólidos Totales Disueltos (TDS)</label>
+                          <label for="inputtext6" class="col-form-label">Sólidos Totales Disueltos</label>
                         </div>
                         <div class="col-auto">
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Solidos_TDS"
+                                  placeholder="mg/l"
                                   [ngClass]="{'is-invalid': solidos_TDS }">
                         </div>
                   </div>
@@ -54,6 +57,7 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Monocloramina"
+                                  placeholder="ppm"
                                   [ngClass]="{'is-invalid': monocloramina }">
                         </div>
                   </div>
@@ -66,6 +70,7 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Sulfato"
+                                  placeholder="mg/l"
                                   [ngClass]="{'is-invalid': sulfato }">
                         </div>
                   </div>
@@ -78,6 +83,7 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Conductividad"
+                                  placeholder="μS/cm"
                                   [ngClass]="{'is-invalid': conductividad }">
                         </div>
                   </div>
@@ -92,6 +98,7 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Carbon_Organico"
+                                  placeholder="ppm"
                                   [ngClass]="{'is-invalid': carbon_Organico }">
                         </div>
                   </div>
@@ -104,6 +111,7 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Trihalometanos"
+                                  placeholder="μg/l"
                                   [ngClass]="{'is-invalid': trihalometanos }">
                         </div>
                   </div>
@@ -116,6 +124,7 @@
                           <input type="text" 
                                   class="form-control" 
                                   formControlName="Turbiedad"
+                                  placeholder="UNT"
                                   [ngClass]="{'is-invalid': turbiedad }">
                         </div>
                   </div>
@@ -136,27 +145,23 @@
                   </select>
                 </div>
               </div>
-              <div class="mt-3">
-                <button class="btn btn-primary btn-lg btn-sm" 
+              <div class="mt-4">
+                <button class="btn-custom btn-sm" 
                         (click)="sendPredict()"
                         [disabled]="_api.load">
                   <span *ngIf="_api.load" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  Resultado
+                  Predecir
                 </button>
-                <button class="btn btn-danger btn-lg btn-sm m-1" (click)="clear()">Limpiar campos</button>
+                <button class="btn-custom btn-sm m-1" (click)="clear()">Limpiar campos</button>
               </div>
           </form>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col mt-3" *ngIf="this._api.change">
-            <div *ngIf="_api.resultado==1" class="alert alert-info animate__animated animate__fadeIn" role="alert">
-              El algoritmo <b>{{algoritmo(formData.value.tipo_algoritmo)}}</b> clasificó como agua <b>potable</b> 😊
-            </div>
-            <div *ngIf="_api.resultado==0" class="alert alert-danger animate__animated animate__fadeIn" role="alert">
-              El algoritmo <b>{{algoritmo(formData.value.tipo_algoritmo)}}</b> clasificó como agua <b>No potable</b>  🥺
-            </div>
-          </div>
+      <div class="container mt-4" *ngIf="_api.change">
+        <div *ngIf="_api.resultado==1" class="alert alert-info animate__animated animate__fadeIn" role="alert">
+          El algoritmo <b>{{algoritmo(formData.value.tipo_algoritmo)}}</b> clasificó como agua <b>potable</b> 😊
+        </div>
+        <div *ngIf="_api.resultado==0" class="alert alert-danger animate__animated animate__fadeIn" role="alert">
+          El algoritmo <b>{{algoritmo(formData.value.tipo_algoritmo)}}</b> clasificó como agua <b>No potable</b>  🥺
         </div>
       </div>
     </div>
